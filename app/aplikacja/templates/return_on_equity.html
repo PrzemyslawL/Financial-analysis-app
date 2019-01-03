@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Return on equity</h2>
+    <p>The return on equity ratio or ROE is a profitability ratio that measures the ability of a firm to
+        generate profits from its shareholders investments in the company. In other words, the return on
+        equity ratio shows how much profit each dollar of common stockholders’ equity generates,
+        and is expressed as follows: </p>
+
+    <img src="../static/images/roe.jpg" alt="ROE" class="center">
+    <br>
+    <p>Examples (choose from the list or add <a href="{% url 'roe-add-view' %}">a new one</a>):</p>
+
+    {% if form %}
+        <form action="{% url 'return-on-equity-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <table>
+        <thead>
+        <tr>
+            <td> Year </td>
+            <td> Net income</td>
+            <td> Equity</td>
+            <td><b>Return on equity</b></td>
+        </tr>
+        </thead>
+        {% for roe in return_on_equity %}
+
+            <tr>
+            <td> {{ roe.year }} </td>
+            <td> {{ roe.net_income }}</td>
+            <td> {{ roe.equity }}</td>
+                <td><b> {{ roe.return_on_equity }}</b></td>
+            </tr>
+
+
+
+        {% endfor %}
+        </table>
+
+
+    {% endif %}
+
+{% endblock %}
+

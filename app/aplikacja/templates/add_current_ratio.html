@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    {% if form %}
+        <form action="{% url 'current-ratio-add-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <p>Company name: {{ company_name }}</p>
+        <p>Current assets: {{ current_assets }}</p>
+        <p>Current liabilities: {{ current_liabilities }}</p>
+        <p><b>Ii year {{ year }} current ratio result is: {{ current_ratio }}</b></p>
+    {% endif %}
+
+{% endblock %}
+

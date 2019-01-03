@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2> Contact site owner</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <div class="form-actions">
+        <input type="submit" value="Send">
+    </div>
+    </form>
+
+{% endblock %}
+

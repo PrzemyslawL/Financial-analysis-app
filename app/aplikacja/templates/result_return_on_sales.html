@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <p>Company name: {{ return_on_sales.company_name }}</p>
+    <p>Net income: {{ return_on_sales.net_income }}</p>
+    <p>Net sales: {{ return_on_sales.net_sales }}</p>
+    <p><b>In year {{ return_on_sales.year }} return on sales result is: {{ return_on_sales.return_on_sales }}</b></p>
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'ros-add-view' %}"><p>Add another ratio</p></a>
+
+{% endblock %}

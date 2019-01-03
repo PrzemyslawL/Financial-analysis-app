@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Add a new company</h2>
+
+        {% if form %}
+            <form action="{% url 'add-company-view' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_ul }}
+                <input type="submit" value="OK"/>
+            </form>
+        {% else %}
+            <ul>
+            {% for company_name in company %}
+                <li>{{ company_name }}</li>
+            {% empty %}
+                <li>Dodano firmę</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
+
+{% endblock %}
+
+

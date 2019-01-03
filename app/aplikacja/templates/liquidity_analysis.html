@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Full analysis</h2>
+    <p>Fill those fields to get analysis of: current ratio, quick ratio and cash ratio</p>
+
+    <br>
+    <p>Examples:</p>
+    <br>
+
+    {% if form %}
+        <form action="{% url 'liquidity-analysis-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <table>
+        <thead>
+        <tr>
+            <td> Year </td>
+            <td> Current ratio</td>
+            <td> Quick ratio</td>
+            <td> Cash ratio</td>
+        </tr>
+        </thead>
+
+        {% for cr in current_ratio %}
+        {% for csh in cash_ratio %}
+        {% for qr in quick_ratio %}
+
+            <tr>
+            <td> {{ qr.year }} </td>
+            <td> {{ cr.current_ratio }}</td>
+            <td> {{ qr.quick_ratio }}</td>
+            <td> {{ csh.cash_ratio }}</td>
+            </tr>
+
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+
+        </table>
+    {% endif %}
+
+{% endblock %}
+

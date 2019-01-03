@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Current ratio</h2>
+    <p>The current ratio is a liquidity ratio that measures whether or not a firm has enough resources
+        to meet its short-term obligations. It compares a firm's current assets to its current liabilities,
+        and is expressed as follows: </p>
+
+    <img src="../static/images/current_ratio.jpg" alt="CR" class="center">
+    <br>
+    <p>Examples (choose from the list or add <a href="{% url 'current-ratio-add-view' %}">a new one</a>):</p>
+
+    {% if form %}
+        <form action="{% url 'current-ratio-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <table>
+        <thead>
+        <tr>
+            <td> Year </td>
+            <td> Current assets</td>
+            <td> Current liabilities</td>
+            <td><b>Current ratio</b></td>
+        </tr>
+        </thead>
+        {% for cr in current_ratio %}
+
+            <tr>
+            <td> {{ cr.year }} </td>
+            <td> {{ cr.current_assets }}</td>
+            <td> {{ cr.current_liabilities }}</td>
+                <td><b> {{ cr.current_ratio }}</b></td>
+            </tr>
+
+
+
+        {% endfor %}
+        </table>
+
+
+    {% endif %}
+
+{% endblock %}
+

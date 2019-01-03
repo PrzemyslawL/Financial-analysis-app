@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Quick ratio</h2>
+    <p>In finance, the quick ratio, also known as the acid-test ratio is a type of liquidity ratio which
+        measures the ability of a company to use its near cash or quick assets to extinguish or retire its
+        current liabilities immediately. Quick assets include those current assets that presumably can be
+        quickly converted to cash at close to their book values. It is the ratio between quickly available
+        or liquid assets and current liabilities, and is expressed as follows: </p>
+
+    <img src="../static/images/quick_ratio.jpg" alt="QR" class="center">
+    <p>and: </p>
+    <img src="../static/images/quick_ratio2.jpg" alt="QR2" width="500" class="center">
+    <br>
+    <p>Examples (choose from the list or add <a href="{% url 'quick-ratio-add-view' %}">a new one</a>):</p>
+
+    {% if form %}
+        <form action="{% url 'quick-ratio-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <table>
+        <thead>
+        <tr>
+            <td> Year </td>
+            <td> Cash </td>
+            <td> Marketable securities </td>
+            <td> Accounts receivable </td>
+            <td> Current liabilities </td>
+            <td><b> Quick ratio </b></td>
+        </tr>
+        </thead>
+        {% for cr in quick_ratio %}
+
+            <tr>
+            <td> {{ cr.year }} </td>
+            <td> {{ cr.cash }}</td>
+            <td> {{ cr.marketable_securities }}</td>
+            <td> {{ cr.accounts_receivable }}</td>
+            <td> {{ cr.current_liabilities }}</td>
+                <td><b> {{ cr.quick_ratio }}</b></td>
+            </tr>
+
+
+
+        {% endfor %}
+        </table>
+
+    {% endif %}
+
+{% endblock %}
+

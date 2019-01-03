@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Return on assets</h2>
+    <p>The return on assets ratio, often called the return on total assets, is a profitability ratio that
+        measures the net income produced by total assets during a period by comparing net income to the
+        average total assets. In other words, the return on assets ratio or ROA measures how efficiently
+        a company can manage its assets to produce profits during a period, and is expressed as follows: </p>
+
+    <img src="../static/images/roa.jpg" alt="ROA" class="center">
+    <br>
+    <p>Examples (choose from the list or add <a href="{% url 'roa-add-view' %}">a new one</a>):</p>
+
+    {% if form %}
+        <form action="{% url 'return-on-assets-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <table>
+        <thead>
+        <tr>
+            <td> Year </td>
+            <td> Net income</td>
+            <td> Total assets</td>
+            <td><b>Return on assets</b></td>
+        </tr>
+        </thead>
+        {% for roa in return_on_assets %}
+
+            <tr>
+            <td> {{ roa.year }} </td>
+            <td> {{ roa.net_income }}</td>
+            <td> {{ roa.total_assets }}</td>
+                <td><b> {{ roa.return_on_assets }}</b></td>
+            </tr>
+
+
+
+        {% endfor %}
+        </table>
+
+
+    {% endif %}
+
+{% endblock %}
+

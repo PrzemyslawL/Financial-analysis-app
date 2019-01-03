@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    {% if form %}
+        <form action="{% url 'roa-add-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <p>Company name: {{ company_name }}</p>
+        <p>Net income: {{ net_income }}</p>
+        <p>Total assets: {{ total_assets }}</p>
+        <p><b>In year {{ year }} return on assets result is: {{ return_on_assets }}</b></p>
+    {% endif %}
+
+{% endblock %}

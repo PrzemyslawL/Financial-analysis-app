@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <p>Company name: {{ cash_ratio.company_name }}</p>
+    <p>Cash: {{ cash_ratio.cash }}</p>
+    <p>Current liabilities: {{ cash_ratio.current_liabilities }}</p>
+    <p><b>In year {{ cash_ratio.year }} current radio result is:  {{ cash_ratio.cash_ratio }}</b></p>
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'cash-ratio-add-view' %}"><p>Add another ratio</p></a>
+
+{% endblock %}

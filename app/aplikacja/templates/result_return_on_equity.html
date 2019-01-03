@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <p>Company name: {{ return_on_equity.company_name }}</p>
+    <p>Net income: {{ return_on_equity.net_income }}</p>
+    <p>Equity: {{ return_on_equity.equity }}</p>
+    <p><b>In year {{ return_on_equity.year }} return on equity result is: {{ return_on_equity.return_on_equity }}</b></p>
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'roe-add-view' %}"><p>Add another ratio</p></a>
+
+{% endblock %}

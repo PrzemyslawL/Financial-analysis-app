@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    {% if form %}
+        <form action="{% url 'quick-ratio-add-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <p>Company name: {{ company_name }}</p>
+        <p>Cash: {{ cash }}</p>
+        <p>Marketable securities: {{ marketable_securities }}</p>
+        <p>Accounts receivable: {{ accounts_receivable }}</p>
+        <p>Current liabilities: {{ current_liabilities }}</p>
+        <p><b>Ii year {{ year }} current ratio result is: {{ quick_ratio }}</b></p>
+    {% endif %}
+
+{% endblock %}
+
+

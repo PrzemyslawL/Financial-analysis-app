@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <p>Company name: {{ return_on_assets.company_name }}</p>
+    <p>Net income: {{ return_on_assets.net_income }}</p>
+    <p>Total assets: {{ return_on_assets.total_assets }}</p>
+    <p><b>In year {{ return_on_assets.year }} return on assets result is: {{ return_on_assets.return_on_assets }}</b></p>
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'roa-add-view' %}"><p>Add another ratio</p></a>
+
+{% endblock %}

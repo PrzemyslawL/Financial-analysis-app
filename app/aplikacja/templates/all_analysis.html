@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Add analysis</h2>
+
+    <p>Choose an analysis that You want to add:</p>
+    <ul>
+        <li><a href="{% url 'current-ratio-add-view' %}">Current Ratio</a></li>
+        <li><a href="{% url 'quick-ratio-add-view' %}">Quick Ratio</a></li>
+        <li><a href="{% url 'cash-ratio-add-view' %}">Cash Ratio</a></li>
+        <li><a href="{% url 'roa-add-view' %}">Return on Assets</a></li>
+        <li><a href="{% url 'roe-add-view' %}">Return on Equity</a></li>
+        <li><a href="{% url 'ros-add-view' %}">Return on Sales</a></li>
+    </ul>
+
+{% endblock %}

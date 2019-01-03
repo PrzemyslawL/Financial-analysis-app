@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Return on sales</h2>
+    <p>The return on sales (ROS), also known as a firm's operating profit margin, is a ratio used to
+        evaluate a company's operational efficiency.This measure provides insight into how much profit is
+        being produced per dollar of sales. An increasing ROS indicates that a company is growing more
+        efficiently, while a decreasing ROS could signal impending financial troubles, and is expressed as
+        follows: </p>
+
+    <img src="../static/images/ros.jpg" alt="ROS" class="center">
+    <br>
+    <p>Examples (choose from the list or add <a href="{% url 'ros-add-view' %}">a new one</a>):</p>
+
+    {% if form %}
+        <form action="{% url 'return-on-sales-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <table>
+        <thead>
+        <tr>
+            <td> Year </td>
+            <td> Net income</td>
+            <td> Net sales</td>
+            <td><b>Return on sales</b></td>
+        </tr>
+        </thead>
+        {% for ros in return_on_sales %}
+
+            <tr>
+            <td> {{ ros.year }} </td>
+            <td> {{ ros.net_income }}</td>
+            <td> {{ ros.net_sales }}</td>
+                <td><b> {{ ros.return_on_sales }}</b></td>
+            </tr>
+
+
+
+        {% endfor %}
+        </table>
+
+
+    {% endif %}
+
+{% endblock %}
+

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+        <p>Company name: {{ quick_ratio.company_name }}</p>
+        <p>Cash: {{ quick_ratio.cash }}</p>
+        <p>Marketable securities: {{ quick_ratio.marketable_securities }}</p>
+        <p>Accounts receivable: {{ quick_ratio.accounts_receivable }}</p>
+        <p>Current liabilities: {{ quick_ratio.current_liabilities }}</p>
+        <p><b>In year {{ quick_ratio.year }} quick ratio result is: {{ quick_ratio.quick_ratio }}</b></p>
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'quick-ratio-add-view' %}"><p>Add another ratio</p></a>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Cash ratio</h2>
+    <p>The cash ratio is the ratio of a company's total cash and cash equivalents (CCE)
+        to its current liabilities. The metric calculates a company's ability to repay its short-term debt;
+        this information is useful to creditors when deciding how much debt, if any, they would be willing
+        to extend to the asking party. The cash ratio is generally a more conservative look at a company's
+        ability to cover its liabilities than many other liquidity ratios because other assets, including
+        accounts receivable, are left out of the equation. It is expressed as follows: </p>
+
+    <img src="../static/images/cash_ratio.jpg" alt="CshR" class="center">
+    <br>
+    <p>Examples (choose from the list or add <a href="{% url 'cash-ratio-add-view' %}">a new one</a>):</p>
+
+    {% if form %}
+        <form action="{% url 'cash-ratio-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <table>
+        <thead>
+        <tr>
+            <td> Year </td>
+            <td> Cash </td>
+            <td> Current liabilities</td>
+            <td><b>Cash ratio</b></td>
+        </tr>
+        </thead>
+        {% for cr in cash_ratio %}
+
+            <tr>
+            <td> {{ cr.year }} </td>
+            <td> {{ cr.cash }}</td>
+            <td> {{ cr.current_liabilities }}</td>
+                <td><b> {{ cr.cash_ratio }}</b></td>
+            </tr>
+
+        {% endfor %}
+        </table>
+
+
+    {% endif %}
+
+{% endblock %}
+

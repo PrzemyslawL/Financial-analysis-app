@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Debt to equity ratio</h2>
+    <p>The Debt to Equity (D/E) Ratio is calculated by dividing a company’s total liabilities by its shareholder
+        equity. These numbers are available on the balance sheet of a company’s financial statements. The ratio
+        is used to evaluate a company's financial leverage. The debt/equity ratio is also referred to as a risk
+        or gearing ratio. The formula for calculating the D/E ratio is: </p>
+
+    <img src="../static/images/debt_to_equity_ratio.png" alt="DTQR" class="center">
+    <br>
+    <p>Examples (choose from the list or add <a href="{% url 'debt-to-equity-ratio-add-view' %}">a new one</a>):</p>
+
+    {% if form %}
+        <form action="{% url 'debt-to-equity-ratio-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <table>
+        <thead>
+        <tr>
+            <td> Year </td>
+            <td> Total liabilities </td>
+            <td> Total equity </td>
+            <td><b> Debt to equity ratio </b></td>
+        </tr>
+        </thead>
+        {% for dter in debt_to_equity_ratio %}
+
+            <tr>
+            <td> {{ dter.year }} </td>
+            <td> {{ dter.total_liabilities }}</td>
+            <td> {{ dter.total_equity }}</td>
+                <td><b> {{ dter.debt_to_equity_ratio }}</b></td>
+            </tr>
+
+
+
+        {% endfor %}
+        </table>
+
+
+    {% endif %}
+
+{% endblock %}
+

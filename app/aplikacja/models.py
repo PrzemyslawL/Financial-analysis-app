@@ -117,3 +117,45 @@ class ReturnOnSales (models.Model):
 
     def __str__(self):
         return self.return_on_sales
+
+
+class DebtRatio (models.Model):
+    debt_ratio = models.DecimalField(max_digits=10, decimal_places=3)
+    company_name = models.ForeignKey(Company, on_delete=models.CASCADE)
+    year = models.CharField(max_length=64, choices=YEAR, default="2018")
+    total_liabilities = models.DecimalField(max_digits=10, decimal_places=3)
+    total_assets = models.DecimalField(max_digits=10, decimal_places=3)
+
+    class Meta:
+        unique_together = ('company_name', 'year')
+
+    def __str__(self):
+        return self.debt_ratio
+
+
+class EquityRatio (models.Model):
+    equity_ratio = models.DecimalField(max_digits=10, decimal_places=3)
+    company_name = models.ForeignKey(Company, on_delete=models.CASCADE)
+    year = models.CharField(max_length=64, choices=YEAR, default="2018")
+    total_equity = models.DecimalField(max_digits=10, decimal_places=3)
+    total_assets = models.DecimalField(max_digits=10, decimal_places=3)
+
+    class Meta:
+        unique_together = ('company_name', 'year')
+
+    def __str__(self):
+        return self.equity_ratio
+
+
+class DebtToEquityRatio (models.Model):
+    debt_to_equity_ratio = models.DecimalField(max_digits=10, decimal_places=3)
+    company_name = models.ForeignKey(Company, on_delete=models.CASCADE)
+    year = models.CharField(max_length=64, choices=YEAR, default="2018")
+    total_liabilities = models.DecimalField(max_digits=10, decimal_places=3)
+    total_equity = models.DecimalField(max_digits=10, decimal_places=3)
+
+    class Meta:
+        unique_together = ('company_name', 'year')
+
+    def __str__(self):
+        return self.debt_to_equity_ratio

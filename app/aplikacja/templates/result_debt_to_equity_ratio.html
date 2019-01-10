@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <p>Company name: {{ debt_to_equity_ratio.company_name }}</p>
+    <p>Total liabilities: {{ debt_to_equity_ratio.total_liabilities }}</p>
+    <p>Total equity: {{ debt_to_equity_ratio.total_equity }}</p>
+    <p><b>In year {{ debt_to_equity_ratio.year }} debt to equity ratio result is:  {{ debt_to_equity_ratio.debt_to_equity_ratio }}</b></p>
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'debt-to-equity-ratio-add-view' %}"><p>Add another ratio</p></a>
+
+{% endblock %}

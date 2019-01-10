@@ -1,5 +1,6 @@
 from django import forms
-from .models import Company, CurrentRatio, QuickRatio, CashRatio, ReturnOnAssets, ReturnOnEquity, ReturnOnSales
+from .models import Company, CurrentRatio, QuickRatio, CashRatio, ReturnOnAssets, ReturnOnEquity, ReturnOnSales, \
+    DebtRatio, EquityRatio, DebtToEquityRatio
 
 YEAR = (
     ('2000', '2000'),
@@ -64,6 +65,24 @@ class ROSAddForm (forms.ModelForm):
     class Meta:
         model = ReturnOnSales
         exclude = ['return_on_sales']
+
+
+class DebtRatioAddForm(forms.ModelForm):
+    class Meta:
+        model = DebtRatio
+        exclude = ['debt_ratio']
+
+
+class EquityRatioAddForm(forms.ModelForm):
+    class Meta:
+        model = EquityRatio
+        exclude = ['equity_ratio']
+
+
+class DebtToEquityRatioAddForm(forms.ModelForm):
+    class Meta:
+        model = DebtToEquityRatio
+        exclude = ['debt_to_equity_ratio']
 
 
 class ExamplesForm(forms.Form):

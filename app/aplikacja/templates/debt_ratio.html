@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Debt ratio</h2>
+    <p>The debt ratio is a financial ratio that measures the extent of a company’s leverage. The debt ratio is
+        defined as the ratio of total debt to total assets, expressed as a decimal or percentage.
+        It can be interpreted as the proportion of a company’s assets that are financed by debt,
+        and is expressed as follows: </p>
+
+    <img src="../static/images/debt_ratio.png" alt="DR" class="center">
+    <br>
+    <p>Examples (choose from the list or add <a href="{% url 'debt-ratio-add-view' %}">a new one</a>):</p>
+
+    {% if form %}
+        <form action="{% url 'debt-ratio-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <table>
+        <thead>
+        <tr>
+            <td> Year </td>
+            <td> Total liabilities </td>
+            <td> Total assets </td>
+            <td><b>Debt ratio </b></td>
+        </tr>
+        </thead>
+        {% for dr in debt_ratio %}
+
+            <tr>
+            <td> {{ dr.year }} </td>
+            <td> {{ dr.total_liabilities }}</td>
+            <td> {{ dr.total_assets }}</td>
+                <td><b> {{ dr.debt_ratio }}</b></td>
+            </tr>
+
+
+
+        {% endfor %}
+        </table>
+
+
+    {% endif %}
+
+{% endblock %}
+

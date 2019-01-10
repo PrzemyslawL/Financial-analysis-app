@@ -19,8 +19,9 @@ from django.conf.urls import url
 from aplikacja.views import CurrentRatioAddView, QuickRatioView, CashRatioView, AddCompanyView, CompanyView, \
     CurrentRatioResultView, CurrentRatioView, QuickRatioAddView, QuickRatioResultView, CashRatioAddView, \
     CashRatioResultView, ReturnOnAssetsView, ROAAddView, ReturnOnAssetsResultView, ReturnOnSalesView, \
-    ROSAddView, ReturnOnSalesResultView, ReturnOnEquityView, ROEAddView, ReturnOnEquityResultView, \
-    contact_view, success_view
+    ROSAddView, ReturnOnSalesResultView, ReturnOnEquityView, ROEAddView, ReturnOnEquityResultView, DebtRatioView, \
+    DebtRatioAddView, DebtRatioResultView, EquityRatioView, EquityRatioAddView, EquityRatioResultView, \
+    DebtToEquityRatioView, DebtToEquityRatioAddView, DebtToEquityRatioResultView, contact_view, success_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -53,6 +54,18 @@ urlpatterns = [
     url(r'^ros_add', ROSAddView.as_view(), name="ros-add-view"),
     url(r'^result_return_on_sales/(?P<return_on_sales_id>(\d)+)', ReturnOnSalesResultView.as_view(),
         name="return-on-sales-result-view"),
+    url(r'^debt_ratio', DebtRatioView.as_view(), name="debt-ratio-view"),
+    url(r'^add_debt_ratio', DebtRatioAddView.as_view(), name="debt-ratio-add-view"),
+    url(r'^result_debt_ratio/(?P<debt_ratio_id>(\d)+)', DebtRatioResultView.as_view(),
+        name="debt-ratio-result-view"),
+    url(r'^equity_ratio', EquityRatioView.as_view(), name="equity-ratio-view"),
+    url(r'^add_equity_ratio', EquityRatioAddView.as_view(), name="equity-ratio-add-view"),
+    url(r'^result_equity_ratio/(?P<equity_ratio_id>(\d)+)', EquityRatioResultView.as_view(),
+        name="equity-ratio-result-view"),
+    url(r'^debt_to_equity_ratio', DebtToEquityRatioView.as_view(), name="debt-to-equity-ratio-view"),
+    url(r'^add_debt_to_equity_ratio', DebtToEquityRatioAddView.as_view(), name="debt-to-equity-ratio-add-view"),
+    url(r'^result_debt_to_equity_ratio/(?P<debt_to_equity_ratio_id>(\d)+)', DebtToEquityRatioResultView.as_view(),
+        name="debt-to-equity-ratio-result-view"),
     url(r'^all_analysis$', TemplateView.as_view(template_name='all_analysis.html')),
     url(r'^contact$', contact_view, name="contact"),
     url(r'^faq$', TemplateView.as_view(template_name='faq.html')),

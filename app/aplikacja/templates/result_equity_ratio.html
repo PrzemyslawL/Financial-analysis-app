@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <p>Company name: {{ equity_ratio.company_name }}</p>
+    <p>Total equity: {{ equity_ratio.total_equity }}</p>
+    <p>Total assets: {{ equity_ratio.total_assets }}</p>
+    <p><b>In year {{ equity_ratio.year }} equity ratio result is:  {{ equity_ratio.equity_ratio }}</b></p>
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'equity-ratio-add-view' %}"><p>Add another ratio</p></a>
+
+{% endblock %}

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
-from aplikacja.forms import CurrentRatioAddForm, AddCompanyForm, QuickRatioAddForm, CashRatioAddForm, \
-    ROAAddForm, ROEAddForm, ROSAddForm, ExamplesForm, ContactForm
-from .models import Company, CurrentRatio, QuickRatio, CashRatio, ReturnOnEquity, ReturnOnAssets, ReturnOnSales
+from .forms import CurrentRatioAddForm, AddCompanyForm, QuickRatioAddForm, CashRatioAddForm, ROAAddForm, ROEAddForm, \
+    ROSAddForm, ExamplesForm, ContactForm, DebtRatioAddForm, EquityRatioAddForm, DebtToEquityRatioAddForm
+from .models import Company, CurrentRatio, QuickRatio, CashRatio, ReturnOnEquity, ReturnOnAssets, ReturnOnSales, \
+    DebtRatio, EquityRatio, DebtToEquityRatio
 from django.core.mail import send_mail, BadHeaderError
 
 
@@ -282,6 +283,130 @@ class ReturnOnSalesView(View):
             return_on_sales = ReturnOnSales.objects.filter(year__gte=year_from, year__lte=year_to, company_name=company)
             ctx = {'return_on_sales': return_on_sales}
             return render(request, 'return_on_sales.html', ctx)
+
+
+class DebtRatioAddView(View):
+    def get(self, request):
+        form = DebtRatioAddForm()
+        ctx = {'form': form}
+        return render(request, 'add_debt_ratio.html', ctx)
+
+    def post(self, request):
+        form = DebtRatioAddForm(request.POST)
+        if form.is_valid():
+            debt_ratio = form.save(commit=False)
+            debt_ratio.debt_ratio = debt_ratio.total_liabilities / debt_ratio.total_assets
+            debt_ratio.save()
+            return HttpResponseRedirect("result_debt_ratio/{}".format(debt_ratio.id))
+        return render(request, 'add_debt_ratio.html', {'form': form})
+
+
+class EquityRatioAddView(View):
+    def get(self, request):
+        form = EquityRatioAddForm()
+        ctx = {'form': form}
+        return render(request, 'add_equity_ratio.html', ctx)
+
+    def post(self, request):
+        form = EquityRatioAddForm(request.POST)
+        if form.is_valid():
+            equity_ratio = form.save(commit=False)
+            equity_ratio.equity_ratio = equity_ratio.total_equity / equity_ratio.total_assets
+            equity_ratio.save()
+            return HttpResponseRedirect("result_equity_ratio/{}".format(equity_ratio.id))
+        return render(request, 'add_equity_ratio.html', {'form': form})
+
+
+class DebtToEquityRatioAddView(View):
+    def get(self, request):
+        form = DebtToEquityRatioAddForm()
+        ctx = {'form': form}
+        return render(request, 'add_debt_to_equity_ratio.html', ctx)
+
+    def post(self, request):
+        form = DebtToEquityRatioAddForm(request.POST)
+        if form.is_valid():
+            debt_to_equity_ratio = form.save(commit=False)
+            debt_to_equity_ratio.debt_to_equity_ratio = debt_to_equity_ratio.total_liabilities / debt_to_equity_ratio.\
+                total_equity
+            debt_to_equity_ratio.save()
+            return HttpResponseRedirect("result_debt_to_equity_ratio/{}".format(debt_to_equity_ratio.id))
+        return render(request, 'add_debt_to_equity_ratio.html', {'form': form})
+
+
+class DebtRatioResultView(View):
+    def get(self, request, debt_ratio_id):
+        debt_ratio_id = DebtRatio.objects.get(id=debt_ratio_id)
+
+        ctx = {'debt_ratio': debt_ratio_id}
+        return render(request, 'result_debt_ratio.html', ctx)
+
+
+class EquityRatioResultView(View):
+    def get(self, request, equity_ratio_id):
+        equity_ratio_id = EquityRatio.objects.get(id=equity_ratio_id)
+
+        ctx = {'equity_ratio': equity_ratio_id}
+        return render(request, 'result_equity_ratio.html', ctx)
+
+
+class DebtToEquityRatioResultView(View):
+    def get(self, request, debt_to_equity_ratio_id):
+        debt_to_equity_ratio_id = DebtToEquityRatio.objects.get(id=debt_to_equity_ratio_id)
+
+        ctx = {'debt_to_equity_ratio': debt_to_equity_ratio_id}
+        return render(request, 'result_debt_to_equity_ratio.html', ctx)
+
+
+class DebtRatioView(View):
+    def get(self, request):
+        form = ExamplesForm()
+        ctx = {'form': form}
+        return render(request, 'debt_ratio.html', ctx)
+
+    def post(self, request):
+        form = ExamplesForm(request.POST)
+        if form.is_valid():
+            year_from = form.cleaned_data['year_from']
+            year_to = form.cleaned_data['year_to']
+            company = form.cleaned_data['company_name']
+            debt_ratio = DebtRatio.objects.filter(year__gte=year_from, year__lte=year_to, company_name=company)
+            ctx = {'debt_ratio': debt_ratio}
+            return render(request, 'debt_ratio.html', ctx)
+
+
+class EquityRatioView(View):
+    def get(self, request):
+        form = ExamplesForm()
+        ctx = {'form': form}
+        return render(request, 'equity_ratio.html', ctx)
+
+    def post(self, request):
+        form = ExamplesForm(request.POST)
+        if form.is_valid():
+            year_from = form.cleaned_data['year_from']
+            year_to = form.cleaned_data['year_to']
+            company = form.cleaned_data['company_name']
+            equity_ratio = EquityRatio.objects.filter(year__gte=year_from, year__lte=year_to, company_name=company)
+            ctx = {'equity_ratio': equity_ratio}
+            return render(request, 'equity_ratio.html', ctx)
+
+
+class DebtToEquityRatioView(View):
+    def get(self, request):
+        form = ExamplesForm()
+        ctx = {'form': form}
+        return render(request, 'debt_to_equity_ratio.html', ctx)
+
+    def post(self, request):
+        form = ExamplesForm(request.POST)
+        if form.is_valid():
+            year_from = form.cleaned_data['year_from']
+            year_to = form.cleaned_data['year_to']
+            company = form.cleaned_data['company_name']
+            debt_to_equity_ratio = DebtToEquityRatio.objects.filter(year__gte=year_from, year__lte=year_to, company_name=company)
+            ctx = {'debt_to_equity_ratio': debt_to_equity_ratio}
+            return render(request, 'debt_to_equity_ratio.html', ctx)
 
 
 def contact_view(request):

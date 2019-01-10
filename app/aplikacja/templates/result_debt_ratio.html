@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <p>Company name: {{ debt_ratio.company_name }}</p>
+    <p>Total liabilities: {{ debt_ratio.total_liabilities }}</p>
+    <p>Total assets: {{ debt_ratio.total_assets }}</p>
+    <p><b>In year {{ debt_ratio.year }} debt ratio result is:  {{ debt_ratio.debt_ratio }}</b></p>
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'debt-ratio-add-view' %}"><p>Add another ratio</p></a>
+
+{% endblock %}

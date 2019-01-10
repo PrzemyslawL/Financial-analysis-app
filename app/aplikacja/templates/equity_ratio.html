@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Equity ratio</h2>
+    <p>The equity ratio is a financial ratio indicating the relative proportion of equity used to finance a
+        company's assets. The two components are often taken from the firm's balance sheet or statement of
+        financial position (so-called book value), but the ratio may also be calculated using market values
+        for both, if the company's equities are publicly traded and is expressed as follows: </p>
+
+    <img src="../static/images/equity_ratio.png" alt="ER" class="center">
+    <br>
+    <p>Examples (choose from the list or add <a href="{% url 'equity-ratio-add-view' %}">a new one</a>):</p>
+
+    {% if form %}
+        <form action="{% url 'equity-ratio-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <table>
+        <thead>
+        <tr>
+            <td> Year </td>
+            <td> Total equity </td>
+            <td> Total assets </td>
+            <td><b> Equity ratio </b></td>
+        </tr>
+        </thead>
+        {% for er in equity_ratio %}
+
+            <tr>
+            <td> {{ er.year }} </td>
+            <td> {{ er.total_equity }}</td>
+            <td> {{ er.total_assets }}</td>
+                <td><b> {{ er.equity_ratio }}</b></td>
+            </tr>
+
+
+
+        {% endfor %}
+        </table>
+
+
+    {% endif %}
+
+{% endblock %}
+

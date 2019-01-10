@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    {% if form %}
+        <form action="{% url 'debt-to-equity-ratio-add-view' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="OK">
+        </form>
+    {% else %}
+        <p>Company name: {{ company_name }}</p>
+        <p>Total liabilities: {{ total_liabilieties }}</p>
+        <p>Total equity: {{ total_equity }}</p>
+        <p><b>Ii year {{ year }} current ratio result is: {{ debt_to_equity_ratio }}</b></p>
+    {% endif %}
+
+{% endblock %}
